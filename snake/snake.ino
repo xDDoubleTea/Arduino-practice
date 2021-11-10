@@ -80,10 +80,32 @@ void go(){
     table_data[snake_x[0]][snake_y[0]]=0;/*尾巴的點暗*/
     head_y=(head_y+1)%8;
     /*先從尾巴開始縮*/
-    for(int i=0;i<2;i++){
+    
+    if(now_direct == 0){
+      for(int i=0;i<2;i++){
         snake_x[i]=snake_x[i+1];
         snake_y[i]=snake_y[i+1];
+      }
     }
+    if(now_direct == 1){
+      for(int i=2;i<0;i--){
+        snake_x[i]=snake_x[i+1];
+        snake_y[i]=snake_y[i+1];
+      }
+    }
+    if(now_direct != 1 || now_direct != 0)
+    {
+      for(int i=0;i<2;i++){
+        snake_x[i]=snake_x[i+1];
+        snake_y[i]=snake_y[i+1];
+      }
+    }
+    /*if(now_direct == 2){
+      
+    }
+    if(now_direct == 3){
+      
+    }*/
     snake_x[2]=head_x;
     snake_y[2]=head_y;
     table_data[head_x][head_y]=1;/*頭的點亮*/
@@ -94,21 +116,20 @@ void change_way(){
   int x = analogRead(vrx);
   int y = analogRead(vry);
   //0up,1right,2down,3left
-  if(x >　768){
-    if(now_direct != 2)
-      now_dierct = 0;
+  if(x > 768 && now_direct != 2){
+    now_direct = 0;
   }
-  if(x <　256){
+  if(x < 256){
     if(now_direct != 0)
-      now_dierct = 2;
+      now_direct = 2;
   }
-  if(y >　768){
+  if(y > 768){
     if(now_direct != 3)
-      now_dierct = 1;
+      now_direct = 1;
   }
-  if(y <　256){
+  if(y < 256){
     if(now_direct != 1)
-      now_dierct = 3;
+      now_direct = 3;
   }
 }
 
@@ -129,6 +150,7 @@ void setup() {
 void loop() {  
     go();
     max7219(table_address,table_data);//更新版面 
+    change_way();
     Serial.println(now_direct);
-    delay(400);
+    delay(100);
 }
