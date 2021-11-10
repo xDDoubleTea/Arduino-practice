@@ -1,3 +1,5 @@
+#include <random.h>
+
 int DS=2;//貨物
 int DT=3;//出發
 int SH=4;//上貨
@@ -136,6 +138,13 @@ void go(){
     table_data[head_x][head_y]=1;/*頭的點亮*/
     
 }
+
+void food(){
+  //隨機取2數當作座標(x,y)
+  //當頭的座標==食物座標
+  //level+=1
+}
+
 
 void setup() {
     pinMode(DS,OUTPUT);
