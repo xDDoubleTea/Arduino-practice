@@ -4,6 +4,7 @@ int SH=4;//上貨
 int vrx = A1;//搖桿x
 int vry = A2;//搖桿y
 int sw = A3;//搖桿按鈕
+int level = 3;
 int direct[4] = {0,1,2,3}; 
 //0up,1right,2down,3left
 int now_direct = 0;
@@ -76,43 +77,10 @@ void max7219(bool address[8][8],bool data[8][8]){
 }
 
 
-void go(){
-    table_data[snake_x[0]][snake_y[0]]=0;/*尾巴的點暗*/
-    head_y=(head_y+1)%8;
-    /*先從尾巴開始縮*/
-    
-    if(now_direct == 0){
-      for(int i=0;i<2;i++){
-        snake_x[i]=snake_x[i+1];
-        snake_y[i]=snake_y[i+1];
-      }
-    }
-    if(now_direct == 1){
-      for(int i=2;i<0;i--){
-        snake_x[i]=snake_x[i+1];
-        snake_y[i]=snake_y[i+1];
-      }
-    }
-    if(now_direct != 1 || now_direct != 0)
-    {
-      for(int i=0;i<2;i++){
-        snake_x[i]=snake_x[i+1];
-        snake_y[i]=snake_y[i+1];
-      }
-    }
-    /*if(now_direct == 2){
-      
-    }
-    if(now_direct == 3){
-      
-    }*/
-    snake_x[2]=head_x;
-    snake_y[2]=head_y;
-    table_data[head_x][head_y]=1;/*頭的點亮*/
-}
 
 
-void change_way(){
+
+void read_way(){
   int x = analogRead(vrx);
   int y = analogRead(vry);
   //0up,1right,2down,3left
@@ -131,8 +99,43 @@ void change_way(){
     if(now_direct != 1)
       now_direct = 3;
   }
+
+
+}
+void change_way(){
+  
+  
+  if(now_direct == 0){
+    head_y = (head_y+1)%8;
+  }
+  else if (now_direct == 1){
+    head_x = (head_x+1)%8;
+  }
+  else if(now_direct == 2){
+    head_y = (head_y+7)%8;
+  }
+  else if(now_direct == 3){
+    head_x = (head_x+7)%8;
+  }
 }
 
+
+void go(){
+
+    table_data[snake_x[0]][snake_y[0]]=0;/*尾巴的點暗*/
+    /*先從尾巴開始縮*/
+    for(int i=0;i<level-1;i++){
+        snake_x[i]=snake_x[i+1];
+        snake_y[i]=snake_y[i+1];
+    }
+    /*依照方向移動頭部座標*/
+    change_way();
+    /*紀錄頭部位置*/
+    snake_x[level-1]=head_x;
+    snake_y[level-1]=head_y;
+    table_data[head_x][head_y]=1;/*頭的點亮*/
+    
+}
 
 void setup() {
     pinMode(DS,OUTPUT);
@@ -150,7 +153,7 @@ void setup() {
 void loop() {  
     go();
     max7219(table_address,table_data);//更新版面 
-    change_way();
     Serial.println(now_direct);
-    delay(100);
+    delay(500);
+    read_way();
 }
