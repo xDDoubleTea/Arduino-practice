@@ -1,19 +1,18 @@
-#include <random.h>
-
 int DS=2;//貨物
 int DT=3;//出發
 int SH=4;//上貨
 int vrx = A1;//搖桿x
 int vry = A2;//搖桿y
 int sw = A3;//搖桿按鈕
-int level = 3;
+int level = 4;
 int direct[4] = {0,1,2,3}; 
 //0up,1right,2down,3left
 int now_direct = 0;
-int snake_x[64]={3,3,3};/*蛇的身體位置紀錄表*/
-int snake_y[64]={3,4,5};/*0是尾巴*/
-
+int snake_x[64]={3,3,3,3};/*蛇的身體位置紀錄表*/
+int snake_y[64]={3,4,5,6};/*0是尾巴*/
+long timer = millis();
 int head_x=3,head_y=5;  /*頭的位置*/
+int food_x, food_y;
 
 
 
@@ -136,13 +135,31 @@ void go(){
     snake_x[level-1]=head_x;
     snake_y[level-1]=head_y;
     table_data[head_x][head_y]=1;/*頭的點亮*/
-    
+    food();
+    if(head_x == food_x && head_y == food_y){
+      food_x = 9;
+      food_y = 9;
+      if(level>8){
+        level = 3;
+      }
+      else{
+        level+=1;
+      }
+    }
 }
 
 void food(){
-  //隨機取2數當作座標(x,y)
-  //當頭的座標==食物座標
-  //level+=1
+  //隨機取2數當作座標  (x,y)
+  if(millis() - timer > 25000){
+  
+    food_x = (timer%13)%8;
+    food_y = (timer%17)%8;
+    table_data[food_x][food_y] = 1;
+      //當頭的座標==食物座標
+    
+    timer = millis();
+  }
+  
 }
 
 
@@ -162,7 +179,12 @@ void setup() {
 void loop() {  
     go();
     max7219(table_address,table_data);//更新版面 
-    Serial.println(now_direct);
+    Serial.print("food_x=");
+    Serial.print(food_x);
+    Serial.print(", food_y=");
+    Serial.print(food_y);
+    Serial.print(", level");
+    Serial.println(level);
     delay(500);
     read_way();
 }
