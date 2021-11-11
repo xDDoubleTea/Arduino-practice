@@ -11,3 +11,4 @@
 *  [bug]Snake has only a 7 maximum length.
 * - [ ] Food generate time randomizing (plan : 10 < t < 30).
 * - [ ] Consider using suggestions that was provided in google classroom. 
+* - [ ] Game over if snake bumped into itself
