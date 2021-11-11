@@ -1,3 +1,4 @@
+```cpp=1
 int DS=2;//貨物
 int DT=3;//出發
 int SH=4;//上貨
@@ -12,9 +13,11 @@ int snake_x[64]={3,3,3,3};/*蛇的身體位置紀錄表*/
 int snake_y[64]={3,4,5,6};/*0是尾巴*/
 long timer = millis();
 int head_x=3,head_y=5;  /*頭的位置*/
-int food_x, food_y;
-
-
+int food_x = 9;
+int food_y = 9;
+int before_food_x = 9;
+int before_food_y = 9;
+int speed = 500;
 
 
 
@@ -139,12 +142,8 @@ void go(){
     if(head_x == food_x && head_y == food_y){
       food_x = 9;
       food_y = 9;
-      if(level>8){
-        level = 3;
-      }
-      else{
-        level+=1;
-      }
+      before_food_x = 9;
+      before_food_y = 9;
     }
 }
 
@@ -153,9 +152,20 @@ void food(){
   if(millis() - timer > 25000){
   
     food_x = (timer%13)%8;
-    food_y = (timer%17)%8;
-    table_data[food_x][food_y] = 1;
-      //當頭的座標==食物座標
+    food_y = ((timer+4551)%19)%8;
+      //食物被吃到
+      if(before_food_x == 9 && before_food_y == 9){
+            before_food_x = food_x;
+            before_food_y = food_y;
+            table_data[food_x][food_y] = 1;
+      }
+      //食物沒被吃到
+    else{
+        table_data[before_food_x][before_food_y]=0;
+        before_food_x = 9;
+        before_food_x = 9;
+    }
+    
     
     timer = millis();
   }
@@ -185,6 +195,7 @@ void loop() {
     Serial.print(food_y);
     Serial.print(", level");
     Serial.println(level);
-    delay(500);
+    delay(500-75(level-1));
     read_way();
 }
+```
