@@ -3,7 +3,7 @@
 ## Snake Progress:  
 * - [x] Read way by using control stick 
 * - [x] Generate food randomly
-* - [] Avoid food generating in the snake's body
+* - [x] Avoid food generating in the snake's body
 * - [x] Becoming longer after the snake eat the food.
 * - [x] Speed changing on level up  
 ```(delay(500-50*(level-1)))```.
