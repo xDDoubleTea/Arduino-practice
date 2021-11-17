@@ -1,4 +1,3 @@
-```cpp=1
 int DS=2;//貨物
 int DT=3;//出發
 int SH=4;//上貨
@@ -138,37 +137,25 @@ void go(){
     snake_x[level-1]=head_x;
     snake_y[level-1]=head_y;
     table_data[head_x][head_y]=1;/*頭的點亮*/
-    food();
+    
     if(head_x == food_x && head_y == food_y){
-      food_x = 9;
-      food_y = 9;
-      before_food_x = 9;
-      before_food_y = 9;
+      food();
+      
+      level += 1;
     }
 }
 
 void food(){
   //隨機取2數當作座標  (x,y)
-  if(millis() - timer > 25000){
+    
   
-    food_x = (timer%13)%8;
-    food_y = ((timer+4551)%19)%8;
-      //食物被吃到
-      if(before_food_x == 9 && before_food_y == 9){
-            before_food_x = food_x;
-            before_food_y = food_y;
-            table_data[food_x][food_y] = 1;
-      }
-      //食物沒被吃到
-    else{
-        table_data[before_food_x][before_food_y]=0;
-        before_food_x = 9;
-        before_food_x = 9;
-    }
+    food_x = rand()%8;
+    food_y = rand()%8;
+    table_data[food_x][food_y] = 1;
+     
+
     
-    
-    timer = millis();
-  }
+  
   
 }
 
@@ -182,7 +169,7 @@ void setup() {
     pinMode(sw,INPUT);
     max7219(set_address,set_data);
     Serial.begin(9600);
-    
+    food();
     
 }
 
@@ -195,7 +182,7 @@ void loop() {
     Serial.print(food_y);
     Serial.print(", level");
     Serial.println(level);
-    delay(500-75(level-1));
+    speed = 500-30*(level-1);
+    delay(speed);
     read_way();
 }
-```
