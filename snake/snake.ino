@@ -55,12 +55,24 @@ bool table_data[8][8]={
     {0,0,0,0,0,0,0,0},/*第0行數值*/
     {0,0,0,0,0,0,0,0},/*第1行數值*/
     {0,0,0,0,0,0,0,0},/*第2行數值*/
-    {0,0,0,1,1,1,0,0},/*第3行數值*/
+    {0,0,0,1,1,1,1,0},/*第3行數值*/
     {0,0,0,0,0,0,0,0},/*第4行數值*/
     {0,0,0,0,0,0,0,0},/*第5行數值*/
     {0,0,0,0,0,0,0,0},/*第6行數值*/
     {0,0,0,0,0,0,0,0}/*第7行數值*/
 };
+
+bool game_over[8][8] = {
+    {0,0,0,0,0,0,0,0},/*第0行數值*/
+    {0,0,0,0,0,0,0,0},/*第1行數值*/
+    {0,0,0,0,0,0,0,0},/*第2行數值*/
+    {0,0,0,0,0,0,0,0},/*第3行數值*/
+    {0,0,0,0,0,0,0,0},/*第4行數值*/
+    {0,0,0,0,0,0,0,0},/*第5行數值*/
+    {0,0,0,0,0,0,0,0},/*第6行數值*/
+    {0,0,0,0,0,0,0,0}/*第7行數值*/
+};
+
 
 void max7219(bool address[8][8],bool data[8][8]){
     for(int i = 0; i < 8; i++){
@@ -124,7 +136,7 @@ void change_way(){
 
 
 void go(){
-
+    read_way();
     table_data[snake_x[0]][snake_y[0]]=0;/*尾巴的點暗*/
     /*先從尾巴開始縮*/
     for(int i=0;i<level-1;i++){
@@ -146,18 +158,20 @@ void go(){
 }
 
 void food(){
-  //隨機取2數當作座標  (x,y)
-    
-  
+  //隨機取2數當作座標  (x,y) 
     food_x = rand()%8;
-    food_y = rand()%8;
-    table_data[food_x][food_y] = 1;
-     
-
-    
-  
-  
+        food_y = rand()%8;
+    for(int i = 0; i<level -1 ; i++){
+      if(snake_x[i] == food_x || snake_y[i] == food_y){
+        food_x = rand()%8;
+        food_y = rand()%8;
+      }
+      else{
+        table_data[food_x][food_y] = 1;
+      }
+    }
 }
+
 
 
 void setup() {
@@ -174,15 +188,23 @@ void setup() {
 }
 
 void loop() {  
-    go();
-    max7219(table_address,table_data);//更新版面 
-    Serial.print("food_x=");
-    Serial.print(food_x);
-    Serial.print(", food_y=");
-    Serial.print(food_y);
-    Serial.print(", level");
-    Serial.println(level);
-    speed = 500-30*(level-1);
-    delay(speed);
-    read_way();
+    
+    for(int i = 0; i < level-1; i++){
+      if(head_x == snake_x[i] && head_y == snake_y[i]){
+           max7219(table_address,game_over);
+      }
+      else{
+        go();
+        max7219(table_address,table_data);//更新版面 
+        Serial.print("food_x=");
+        Serial.print(food_x);
+        Serial.print(", food_y=");
+        Serial.print(food_y);
+        Serial.print(", level");
+        Serial.println(level);
+        speed = 500-30*(level-1);
+        delay(speed);
+      }
+    }
+    
 }
