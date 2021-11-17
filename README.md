@@ -9,4 +9,5 @@
 ```(delay(500-50*(level-1)))```.
 *  [bug]Snake has only a 7 maximum length.
 * - [ ] Consider using suggestions that was provided in google classroom. 
-* - [ ] Game over if snake bumped into itself
+* - [x] Game over if snake bumped into itself
+* - [ ] Use lcd to show level, speed, game over.
