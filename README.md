@@ -7,6 +7,7 @@
 * - [x] Becoming longer after the snake eat the food.
 * - [x] Speed changing on level up  
 ```(delay(500-50*(level-1)))```.
-* - [ ] Consider using suggestions that was provided in google classroom. 
 * - [x] Game over if snake bumped into itself
-* - [ ] Use lcd to show level, speed, game over.
+* - [ ] Consider using suggestions that was provided in google classroom. 
+* - [ ] [BUG] Print game time on lcd lags the game.
+* - [ ] Use lcd to show level, speed, game over, game time.
