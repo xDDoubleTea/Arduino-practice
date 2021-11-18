@@ -137,6 +137,13 @@ void change_way(){
 
 void go(){
     read_way();
+    for(int i = 0; i<level-1; i++){
+      if(head_x == snake_x[level] && head_y == snake_y[level]){
+        max7219(table_address,game_over);
+        delay(1000000);
+      }
+    }
+      
     table_data[snake_x[0]][snake_y[0]]=0;/*尾巴的點暗*/
     /*先從尾巴開始縮*/
     for(int i=0;i<level-1;i++){
@@ -152,7 +159,6 @@ void go(){
     
     if(head_x == food_x && head_y == food_y){
       food();
-      
       level += 1;
     }
 }
@@ -160,16 +166,11 @@ void go(){
 void food(){
   //隨機取2數當作座標  (x,y) 
     food_x = rand()%8;
-        food_y = rand()%8;
-    for(int i = 0; i<level -1 ; i++){
-      if(snake_x[i] == food_x || snake_y[i] == food_y){
-        food_x = rand()%8;
-        food_y = rand()%8;
+    food_y = rand()%8;
+      if(table_data[food_x][food_y]){
+        food();
       }
-      else{
-        table_data[food_x][food_y] = 1;
-      }
-    }
+    table_data[food_x][food_y] = 1;
 }
 
 
