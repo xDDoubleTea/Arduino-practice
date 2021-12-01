@@ -19,4 +19,5 @@
 * - [ ] Being able to rotate teriminos
 * - [ ] Detect if a horizontal line is full then score up and eliminatate it
 * - [ ] Use lcd to show next block, game time, game over, score
+* - [ ] level up (optional) 
 * - [x] Music
