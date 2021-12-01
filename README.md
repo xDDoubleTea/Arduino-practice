@@ -11,3 +11,7 @@
 * - [ ] Consider using suggestions that was provided in google classroom. 
 * - [ ] [BUG] Print game time on lcd lags the game.
 * - [ ] Use lcd to show level, speed, game over, game time.
+
+## Tetris Progress:
+* - [ ] 4 buttons control tetiminos rotating , moving.
+* - [ ] Music
