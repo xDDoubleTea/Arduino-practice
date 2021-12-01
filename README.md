@@ -14,4 +14,4 @@
 
 ## Tetris Progress:
 * - [ ] 4 buttons control tetiminos rotating , moving.
-* - [ ] Music
+* - [x] Music
