@@ -13,5 +13,8 @@
 * - [ ] Use lcd to show level, speed, game over, game time.
 
 ## Tetris Progress:
-* - [ ] 4 buttons control tetiminos rotating , moving.
+* - [ ] Spawn 7 kinds of tetriminos, LJTSZOI
+* - [ ] Implment 4 buttons to control the movement and rotation of tetriminos
+* - [ ] Being able to move tetriminos (move left/right on press, if press time over than 0.3 seconds then constantly move 0.5 seconds per block til button was released)
+* - [ ] Being able to rotate teriminos
 * - [x] Music
