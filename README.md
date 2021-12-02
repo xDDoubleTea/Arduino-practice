@@ -14,7 +14,7 @@
 
 ## Tetris Progress:
 * - [ ] Spawn 7 kinds of tetriminos, LJTSZOI
-* - [ ] Implment 4 buttons to control the movement and rotation of tetriminos
+* - [x] Implment 4 buttons to control the movement and rotation of tetriminos
 * - [ ] Being able to move tetriminos (move left/right on press, if press time over than 0.3 seconds then constantly move 0.5 seconds per block til button was released)
 * - [ ] Being able to rotate teriminos
 * - [ ] Detect if a horizontal line is full then score up and eliminatate it
