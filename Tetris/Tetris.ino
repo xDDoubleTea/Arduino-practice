@@ -1,9 +1,14 @@
-#include <pitches.h>
+#include "pitches.h"
 int DS=2;//貨物
 int DT=3;//出發
 int SH=4;//上貨
 int speaker = 5;
 int bpm = 120;
+long timer = millis();
+const int clockwise = 8; //yellow
+const int counter_clockwise = 9; //green
+const int move_right = 6; //black
+const int move_left = 7; //red
 
 
 int melody[250] = {
@@ -39,7 +44,6 @@ float beats[250] = {
 
 void music(){
   for(int i = 0;i<153; i++){
-    Serial.println(i);
     tone(speaker, melody[i]);
     delay((bpm/60)*100*beats[i]-35);
     noTone(speaker);
@@ -48,7 +52,6 @@ void music(){
 }
 
 void setup() {
-
     Serial.begin(9600);
 }
 
