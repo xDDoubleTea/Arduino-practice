@@ -23,3 +23,6 @@
 * - [ ] Use lcd to show next block, game time, game over, score
 * - [ ] level up (optional) 
 * - [x] Music
+
+## Car progress
+* - [ ] Follow line
