@@ -10,9 +10,10 @@
 #define MotorB_I4     11 //定義 I4 接腳
 #define MotorA_PWMA   6 //定義 ENA (PWM調速) 接腳
 #define MotorB_PWMB   5 //定義 ENB (PWM調速) 接腳
+int DigitalPin_L = 3;
+int DigitalPin_R = 12;
 
-int DigitalPin_R = A1;
-int DigitalPin_L = A0; 
+///int AnalogPin_R = 3; 
 //LiquidCrystal_I2C lcd(0x27,16,2);
 
 
@@ -29,10 +30,10 @@ void setup()
   pinMode(MotorA_I2,  OUTPUT);
   pinMode(MotorB_I3,  OUTPUT);
   pinMode(MotorB_I4,  OUTPUT);
+//  pinMode(AnalogPin_R, INPUT);
+  //pinMode(AnalogPin_L, INPUT);
   pinMode(DigitalPin_R, INPUT);
   pinMode(DigitalPin_L, INPUT);
-
-
   
   
   pinMode(MotorA_PWMA, OUTPUT);
@@ -48,6 +49,7 @@ void forward()    // 前進
     digitalWrite(MotorA_I2,LOW);
     digitalWrite(MotorB_I3,LOW);   
     digitalWrite(MotorB_I4,HIGH);
+    delay(100);
 }
 
 void turnL(int d)    
@@ -78,27 +80,37 @@ void stopRL(int f)  //停止
 }
 
 void line_(){
-  //r_ana = analogRead(AnalogPin_R);
-  //l_ana = analogRead(AnalogPin_L);
-  //右邊在偵測到黑色時訊號值會是300多,左邊在偵測到黑色時訊號是195多
-  //(希望變化量差不多)
   
   lmp = 100;
-  rmp = 100;
+  rmp = 110;
   analogWrite(MotorA_PWMA, lmp); //left motor power
   analogWrite(MotorB_PWMB, rmp); //right motor power
-  forward();
-  //if(digitalRead(DigitalPin_L)==1)
+  
+  //if(digitalRead(DigitalPin_L)==1){
+    //if(digitalRead(DigitalPin_R)==1){
+      forward();
+    //}
+    //else{
+      //turnR(1);
+    //}
+  //}
+  //else{
+   // if(digitalRead(DigitalPin_R)==0){
+     //stopRL(5); 
+    //}
+    //else{
+     // turnL(1);
+    //}
+  //}
 }
 
 
 void IRsensor()
 {
-  Serial.print("Left analog:");
-  Serial.println(digitalRead(DigitalPin_L));
-  Serial.print("Right analog:");
+  Serial.print("Right digital:");
   Serial.println(digitalRead(DigitalPin_R));
-
+  Serial.print("Left digital:");
+  Serial.println(digitalRead(DigitalPin_L));
   
   delay(50);
 }
@@ -121,14 +133,9 @@ void loop() {
     //forward(10);
     //IRsensor();
     //stopRL(5);
-    //line_();
-    IRsensor();
-    
+    line_();
     //Serial.println("=====");
-    //Serial.println("lana");
-    //Serial.println(l_ana);
-    //Serial.println("rana");
-    //Serial.println(r_ana);
+    //Serial.println(lmp);
+    //Serial.println(rmp);
     
-    delay(50);
 }
